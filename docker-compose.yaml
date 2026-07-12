@@ -1,12 +1,12 @@
 services:
-  catalog-postgres:
+  core-postgres:
     image: postgres:16
     environment:
-      POSTGRES_DB: ${CATALOG_DB_NAME}
-      POSTGRES_USER: ${CATALOG_DB_USER}
-      POSTGRES_PASSWORD: ${CATALOG_DB_PASSWORD}
-    ports: ["${CATALOG_DB_PORT:-5432}:5432"]
-    volumes: ["catalog_pg_data:/var/lib/postgresql/data"]
+      POSTGRES_DB: ${CORE_DB_NAME}
+      POSTGRES_USER: ${CORE_DB_USER}
+      POSTGRES_PASSWORD: ${CORE_DB_PASSWORD}
+    ports: ["${CORE_DB_PORT:-5432}:5432"]
+    volumes: ["core_pg_data:/var/lib/postgresql/data"]
 
   analyser-postgres:
     image: postgres:16
@@ -23,9 +23,9 @@ services:
 
 #  keycloak:
 
-#  catalog-service:
+#  core-service:
 #    image:
-#    depends_on: [catalog-postgres, redis, kafka, keycloak]
+#    depends_on: [core-postgres, redis, kafka, keycloak]
 #    ports: ["8081:8080"]
 
 #  ai-analyser:
@@ -35,10 +35,10 @@ services:
 
 #  api-gateway:
 #    image:
-#    depends_on: [catalog-service, ai-analyser]
+#    depends_on: [core-service, ai-analyser]
 #    ports: ["8080:8080"]
 
 
 volumes:
-  catalog_pg_data:
+  core_pg_data:
   analyser_pg_data:
