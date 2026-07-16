@@ -1,27 +1,5 @@
-services:
-  core-postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_DB: ${CORE_DB_NAME}
-      POSTGRES_USER: ${CORE_DB_USER}
-      POSTGRES_PASSWORD: ${CORE_DB_PASSWORD}
-    ports: ["${CORE_DB_PORT:-5432}:5432"]
-    volumes: ["core_pg_data:/var/lib/postgresql/data"]
-
-  analyser-postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_DB: ${ANALYSER_DB_NAME}
-      POSTGRES_USER: ${ANALYSER_DB_USER}
-      POSTGRES_PASSWORD: ${ANALYSER_DB_PASSWORD}
-    ports: ["${ANALYSER_DB_PORT:-5433}:5432"]
-    volumes: ["analyser_pg_data:/var/lib/postgresql/data"]
-
-#  redis:
-
-#  kafka:
-
-#  keycloak:
+include:
+  - docker-compose.dev.yml
 
 #  core-service:
 #    image:
@@ -37,8 +15,3 @@ services:
 #    image:
 #    depends_on: [core-service, ai-analyser]
 #    ports: ["8080:8080"]
-
-
-volumes:
-  core_pg_data:
-  analyser_pg_data:
