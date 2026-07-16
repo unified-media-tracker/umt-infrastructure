@@ -5,8 +5,8 @@ services:
       POSTGRES_DB: ${CORE_DB_NAME}
       POSTGRES_USER: ${CORE_DB_USER}
       POSTGRES_PASSWORD: ${CORE_DB_PASSWORD}
-    ports: ["${CORE_DB_PORT:-5432}:5432"]
-    volumes: ["core_pg_data:/var/lib/postgresql/data"]
+    ports: [ "${CORE_DB_PORT:-5432}:5432" ]
+    volumes: [ "core_pg_data:/var/lib/postgresql/data" ]
 
   analyser-postgres:
     image: postgres:16
@@ -14,16 +14,26 @@ services:
       POSTGRES_DB: ${ANALYSER_DB_NAME}
       POSTGRES_USER: ${ANALYSER_DB_USER}
       POSTGRES_PASSWORD: ${ANALYSER_DB_PASSWORD}
-    ports: ["${ANALYSER_DB_PORT:-5433}:5432"]
-    volumes: ["analyser_pg_data:/var/lib/postgresql/data"]
+    ports: [ "${ANALYSER_DB_PORT:-5433}:5432" ]
+    volumes: [ "analyser_pg_data:/var/lib/postgresql/data" ]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    ports: [ "${KEYCLOAK_PORT:-8180}:8080" ]
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm.json
 
 #  redis:
 
 #  kafka:
 
-#  keycloak:
-
 
 volumes:
   core_pg_data:
   analyser_pg_data:
+  keycloak_data:
