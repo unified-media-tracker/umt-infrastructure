@@ -1,9 +1,12 @@
 include:
-  - docker-compose.dev.yml
+  - docker-compose.dev.yaml
 
+#services:
 #  core-service:
 #    image:
 #    depends_on: [core-postgres, redis, kafka, keycloak]
+#    environment:
+#      KEYCLOAK_ISSUER_URI: http://keycloak:8180/realms/umt
 #    ports: ["8081:8080"]
 
 #  ai-analyser:
