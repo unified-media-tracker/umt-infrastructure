@@ -4,14 +4,14 @@ include:
 #services:
 #  core-service:
 #    image:
-#    depends_on: [core-postgres, redis, kafka, keycloak]
+#    depends_on: [core-postgres, redis, rabbitmq, keycloak]
 #    environment:
 #      KEYCLOAK_ISSUER_URI: http://keycloak:8180/realms/umt
 #    ports: ["8081:8080"]
 
 #  ai-analyser:
 #    image:
-#    depends_on: [analyser-postgres, kafka]
+#    depends_on: [analyser-postgres, rabbitmq]
 #    ports: ["8082:8080"]
 
 #  api-gateway:

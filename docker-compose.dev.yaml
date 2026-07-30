@@ -29,12 +29,22 @@ services:
       - keycloak_data:/opt/keycloak/data
       - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-import.json
 
-#  redis:
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+      - "${RABBITMQ_PORT:-5672}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    volumes: [ "rabbitmq_data:/var/lib/rabbitmq" ]
 
-#  kafka:
+
+#  redis:
 
 
 volumes:
   core_pg_data:
   analyser_pg_data:
   keycloak_data:
+  rabbitmq_data:
